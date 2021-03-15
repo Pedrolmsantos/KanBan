@@ -69,7 +69,6 @@ void view (List to_do, List doing, List done){
     }
 }
 void move(List to_do,List doing,List done){ // FEITO
-    system("clear");
     int opt = 0;
     printf("1 - Ver o Quadro\n");
     printf("2 - Escolher com base no id\n");
