@@ -9,14 +9,24 @@
 #include "Lists.h"
 #define TRUE 1
 #define FALSE 0
-typedef struct Cartao card;
+
+/* while(to_do->next!=NULL){
+     to_do = to_do->next;
+     printf("nrid: %d\n",to_do->info.nrid);
+     printf("prio: %d\n",to_do->info.prio);
+     printf("msg: %s\n",to_do->info.msg);
+     printf("data: %s\n",to_do->info.date);
+ }*/
+
+//typedef struct Cartao card;
 /*typedef struct Cartao{
     int nrid;
     int prio;
     time_t date;
     char msg[50];
 };*/
-void insert(List to_do,int nid){
+
+void insert(List to_do,int nid){// FEITO
     card to_insert;
     struct tm * tm;
     time_t t;
@@ -31,20 +41,12 @@ void insert(List to_do,int nid){
     to_insert.nrid = nid;
     strcpy(to_insert.date, data);
     list_insert(to_do,to_insert);
-    while(to_do->next!=NULL){
-        to_do = to_do->next;
-        printf("nrid: %d\n",to_do->info.nrid);
-        printf("prio: %d\n",to_do->info.prio);
-        printf("msg: %s\n",to_do->info.msg);
-        printf("data: %s\n",to_do->info.date);
-    }
-
-
 }
+
 void view (List to_do, List doing, List done){
-    printf("+-------+-------+------+\n");
-    printf("| To Do | Doing | Done |\n");
-    printf("+-------+-------+------+\n");
+    printf("+---------+---------+--------+\n");
+    printf("|  To Do  |  Doing  |  Done  |\n");
+    printf("+---------+---------+--------+\n");
     while(to_do->next!=NULL || doing->next!=NULL || done->next!=NULL) {
         printf("+");
         if (to_do->next!=NULL) {
@@ -52,32 +54,21 @@ void view (List to_do, List doing, List done){
             printf("nrid: %d\n", to_do->info.nrid);
             printf("msg: %s\n", to_do->info.msg);
         }
-        printf("+");
-
         if (doing->next != NULL){
             doing = doing->next;
-            printf("nrid: %d\n", doing->info.nrid);
-            printf("msg: %s\n", doing->info.msg);
+            printf("| nrid: %d  |\n", doing->info.nrid);
+            printf("| msg: %s |\n", doing->info.msg);
         }
-        printf("+");
-
         if (done->next!=NULL){
             done = done->next;
-            printf("nrid: %d\n", done->info.nrid);
-            printf("msg: %s\n", done->info.msg);
+            printf("| nrid: %d |\n", done->info.nrid);
+            printf("| msg: %s |\n", done->info.msg);
         }
-        printf("+");
+        printf("+---------+---------+--------+\n");
     }
 }
-
-void move(List to_do,List doing,List done){
-    while(to_do->next!=NULL) {
-        to_do = to_do->next;
-        printf("nrid: %d\n", to_do->info.nrid);
-        printf("prio: %d\n", to_do->info.prio);
-        printf("msg: %s\n", to_do->info.msg);
-        printf("data: %s\n", to_do->info.date);
-    }
+void move(List to_do,List doing,List done){ // FEITO
+    system("clear");
     int opt = 0;
     printf("1 - Ver o Quadro\n");
     printf("2 - Escolher com base no id\n");
@@ -103,8 +94,8 @@ void move(List to_do,List doing,List done){
         printf("\n");
         strcpy(temp.date, data);
         list_insert(doing,temp);
-    }
 }
+
 int selection(List to_do,List doing,List done,int nid){
     int opt = 0;
     printf("1 - Inserir uma nova tarefa na lista To Do\n");
@@ -120,15 +111,13 @@ int selection(List to_do,List doing,List done,int nid){
     printf("Escolha uma opção: ");
     scanf("%d",&opt);
     printf("\n");
-    //system("clear");
     switch(opt){
         case 1:
             insert(to_do,nid);
-            nid++;
-            break;
+            return opt;
         case 2:
             move(to_do,doing,done);
-            break;
+            return opt;
         case 3:
             break;
         case 4:

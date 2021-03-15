@@ -1,6 +1,6 @@
 #include <time.h>
 typedef struct lnode* List;
-typedef struct Cartao cart;
+typedef struct Cartao card;
 typedef struct Cartao{
     int nrid;
     int prio;
@@ -36,22 +36,23 @@ List list_nodkill(List lista){
     return NULL;
 }
 
-void list_searchtok(List lista, cart chave, List *ant, List *atual){
-    *ant = lista; *atual = lista->next;
+void list_searchtok(List lista, card chave, List *ant, List *atual){
+    *ant = lista;
+    *atual = lista->next;
     while ((*atual) != NULL && (*atual)->info.nrid < chave.nrid){
         *ant = *atual;
         *atual = (*atual)->next;
     }
-    if ((*atual) != NULL && (*atual)->info.msg != chave.msg)
+    if ((*atual) != NULL && (*atual)->info.nrid != chave.nrid)
         *atual = NULL;
 }
-List list_search(List lista, cart it){
+List list_search(List lista, card it){
     List ant;
     List atual;
     list_searchtok (lista, it, &ant, &atual);
     return (atual);
 }
-void list_kill(List lista, cart it){
+void list_kill(List lista, card it){
     List ant1;
     List atual1;
     list_searchtok (lista, it, &ant1, &atual1);
@@ -60,7 +61,7 @@ void list_kill(List lista, cart it){
         free (atual1);
     }
 }
-void list_insert(List lista, cart it){
+void list_insert(List lista, card it){
     List no;
     List ant, inutil;
     no = (List) malloc (sizeof (List_node));
