@@ -61,7 +61,7 @@ void list_kill(List lista, cart it){
     }
 }
 void list_insert(List lista, cart it){
-   /* List no;
+    List no;
     List ant, inutil;
     no = (List) malloc (sizeof (List_node));
     if (no != NULL) {
@@ -69,16 +69,6 @@ void list_insert(List lista, cart it){
         list_searchtok (lista, it, &ant, &inutil);
         no->next = ant->next;
         ant->next = no;
-    }*/
-    List no = (List) malloc (sizeof (List_node));
-    no->next = NULL;
-    if(list_empty(lista))
-        lista->next=no;
-    else{
-        List tmp = lista->next;
-        while(tmp->next != NULL)
-            tmp = tmp->next;
-        tmp->next = no;
     }
 }
 
