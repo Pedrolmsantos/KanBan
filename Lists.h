@@ -4,11 +4,14 @@ typedef struct Cartao card;
 typedef struct Cartao{
     int nrid;
     int prio;
-    time_t date;
+    //time_t date;
+    char date[20];
+    char prazo[20];
     char msg[50];
-};
+    char pessoa[10];
+}Cartao;
 typedef struct lnode {
-    cart info;
+    card info;
     List next;
 } List_node;
 
@@ -41,6 +44,9 @@ void list_searchtok(List lista, card chave, List *ant, List *atual){
     *atual = lista->next;
     while ((*atual) != NULL && (*atual)->info.nrid < chave.nrid){
         *ant = *atual;
+        if (((*atual)->next) == NULL) {
+            break;
+        }
         *atual = (*atual)->next;
     }
     if ((*atual) != NULL && (*atual)->info.nrid != chave.nrid)

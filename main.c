@@ -7,6 +7,7 @@
 #include <math.h>
 #include <time.h>
 #include "Lists.h"
+
 #define TRUE 1
 #define FALSE 0
 
@@ -48,11 +49,11 @@ void view (List to_do, List doing, List done){
     printf("|  To Do  |  Doing  |  Done  |\n");
     printf("+---------+---------+--------+\n");
     while(to_do->next!=NULL || doing->next!=NULL || done->next!=NULL) {
-        printf("+");
+        //printf("+");
         if (to_do->next!=NULL) {
             to_do = to_do->next;
-            printf("nrid: %d\n", to_do->info.nrid);
-            printf("msg: %s\n", to_do->info.msg);
+            printf("| nrid:%d |\n", to_do->info.nrid);
+            printf("| msg:%s |\n", to_do->info.msg);
         }
         if (doing->next != NULL){
             doing = doing->next;
@@ -75,13 +76,13 @@ void move(List to_do,List doing,List done){ // FEITO
     scanf("%d",&opt);
     if(opt==1){
         view(to_do,doing,done);
-    }else if(opt ==2){
+    }
         int id;
         char nome[10],data[20];
-        printf("Insira o id do cartão: ");
+        printf("Insira o id do cartao: ");
         scanf("%d",&id);
-        printf("\n");
-        cart temp;
+        printf("%d\n", id);
+        card temp;
         temp.nrid = id;
         temp = list_search(to_do,temp)->info;
         list_kill(to_do,temp);
@@ -125,14 +126,15 @@ int selection(List to_do,List doing,List done,int nid){
         case 5:
             break;
         case 6:
-            break;
+            view(to_do,doing,done);
+            return opt;
         case 7:
             break;
         case 8:
             break;
         case 9:
             //guardar
-            return 1;
+            return 9;
         default:
             printf("Opção Inválida");
             break;
@@ -145,11 +147,12 @@ int main() {
     List to_do = list_new();
     List doing = list_new();
     List done = list_new();
-   // char* nome = malloc(10*sizeof(char));
-    printf("Insira o Nome: ");
-  //  scanf("%s",nome);
-    printf("\n");
-    selection(to_do,doing,done,nid);
+    int n=0;
+    while (n != 9){
+        n=0;
+        n = selection(to_do,doing,done,nid);
+        nid++;
+    }
     return 0;
 }
 
