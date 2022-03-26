@@ -31,6 +31,7 @@ void insert(List to_do,int nid){// FEITO
     card to_insert;
     struct tm * tm;
     time_t t;
+    int kwokd;
     char data[20];
     time(&t);
     tm = localtime(&t);
